@@ -1,0 +1,32 @@
+services:
+  # Mock API service that provides log metadata
+  log-metadata-api:
+    build: ./api
+    container_name: log-metadata-api
+    ports:
+      - "5001:5000"
+    volumes:
+      - ./api:/app
+    environment:
+      - FLASK_ENV=development
+
+  # Grafana instance
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+      - grafana-storage:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_INSTALL_PLUGINS=marcusolsson-json-datasource
+      - GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=marcusolsson-json-datasource
+    depends_on:
+      - log-metadata-api
+
+volumes:
+  grafana-storage:

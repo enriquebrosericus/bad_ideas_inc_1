@@ -1,0 +1,12 @@
+apiVersion: 1
+
+datasources:
+  - name: Log Metadata API
+    type: marcusolsson-json-datasource
+    access: proxy
+    url: http://log-metadata-api:5000
+    uid: log-metadata-api
+    isDefault: true
+    jsonData:
+      apiVersion: 1
+    editable: true
