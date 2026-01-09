@@ -4,3 +4,14 @@ result-*
 
 # Ignore automatically generated direnv output
 .direnv
+
+# Claude Code
+.claude
+
+# Python
+__pycache__/
+*.py[cod]
+*.db
+
+# Docker volumes
+.data/
